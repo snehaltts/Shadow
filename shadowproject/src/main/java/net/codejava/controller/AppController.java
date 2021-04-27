@@ -168,6 +168,10 @@ public class AppController {
 		public ModelAndView viewHomePage3() {
 			return new ModelAndView ("login") ;
 		}
+		@GetMapping("/login1")
+		public ModelAndView viewHomePage2() {
+			return new ModelAndView ("login1") ;
+		}
 		
 		@GetMapping("/register1")
 		public ModelAndView showRegistrationForm1(Model model) {
@@ -417,12 +421,12 @@ public class AppController {
 					}
 					else {
 						model.addAttribute("msg", "Password Wrong");
-						mv=new ModelAndView("login");
+						mv=new ModelAndView("login1");
 					}
 				}
 				else {
 					model.addAttribute("msg", "User Not Found Please Register");
-					mv=new ModelAndView("login");
+					mv=new ModelAndView("login1");
 				}
 				return mv;
 			}
