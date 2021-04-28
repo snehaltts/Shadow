@@ -28,7 +28,7 @@
 					<th>Mobile</th>
 					<th>Password</th>
 					<th>Username</th>
-					
+					<th>Enable/Disable</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -38,6 +38,7 @@
 					<td th:text="${viewmanager.password}">Duration</td>
 					<td th:text="${viewmanager.userName}">Price</td>
 				
+				<td><a th:href="@{/enabledisable}">Enable/Disable</a><td>
 		
 					
 				</tr>
