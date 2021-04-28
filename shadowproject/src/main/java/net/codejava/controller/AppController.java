@@ -156,6 +156,9 @@ public class AppController {
 		
 		@Autowired
 		private ScheduleRepository 	viRepo;
+		
+		@Autowired
+		private MemberDao 	memRepo;
 
 		
 		
@@ -187,6 +190,14 @@ public class AppController {
 			user.setPassword(encodedPassword);
 			
 			userRepo.save(user);
+			
+			return new ModelAndView( "register_success");
+		}
+		@PostMapping("/process_register1")
+		public ModelAndView processRegister1(Member mem) {
+		
+			
+			memRepo.save(mem);
 			
 			return new ModelAndView( "register_success");
 		}
@@ -310,6 +321,13 @@ public class AppController {
 			return new ModelAndView("listofexam");	
 			}
 		
+		@GetMapping("/Viewmanager")
+		public ModelAndView listmanager(Model model) {
+			List<Member> listmanager = memRepo.findAll();
+			model.addAttribute("listmanager", listmanager);
+			
+			return new ModelAndView("Viewmanager");	
+			}
 		
 		@PostMapping("/exam_register")
 		public ModelAndView examRegister(listofexam li) {
@@ -396,16 +414,13 @@ public class AppController {
 				
 				return new ModelAndView("ViewSchedule");	
 				}
-			
-			
-			
 			@RequestMapping(value="checkuser")
 			public ModelAndView checkUser(HttpServletRequest req, Model model) {
 				ModelAndView mv=null;
 				String email=req.getParameter("lemail");
 				String pass=req.getParameter("lpass");
 				
-				Member m=md.getMemberByEmai(email);
+				Member m=md.findByEmail(email);
 				System.out.println(m);
 				
 				
@@ -414,10 +429,9 @@ public class AppController {
 					if(pass.equals(m.getPassword())) {
 						
 						model.addAttribute("value", m.getUserName());
-						if(m.getAccess()==1)
+						
 						mv=new ModelAndView("neww");
-						else
-							mv= new ModelAndView("adminaccess");
+						
 					}
 					else {
 						model.addAttribute("msg", "Password Wrong");
@@ -430,6 +444,8 @@ public class AppController {
 				}
 				return mv;
 			}
+			
+			
 			
 		
 }
